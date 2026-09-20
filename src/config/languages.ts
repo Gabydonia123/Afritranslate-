@@ -1,0 +1,544 @@
+import { LanguageInfo } from '../types';
+
+export const LANGUAGE_REGISTRY: LanguageInfo[] = [
+  // ================= NIGERIAN LANGUAGES =================
+  {
+    code: 'yo',
+    name: 'Yorùbá',
+    nativeName: 'Èdè Yorùbá',
+    region: 'Nigeria',
+    country: 'Nigeria, Benin, Togo',
+    speakers: '45+ Million',
+    family: 'Niger-Congo (Volta-Niger)',
+    availability: 'High-Resource',
+    supportedTranslationEngines: ['gemini-ai', 'nllb-adapter', 'custom-rule'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['ẹ', 'ọ', 'ṣ', 'á', 'à', 'ā', 'ẹ́', 'ẹ̀', 'ọ́', 'ọ̀', 'ń', 'ḿ', 'Ẹ', 'Ọ', 'Ṣ'],
+    description: 'A major tonal language spoken in southwestern Nigeria and parts of West Africa. Utilizes sub-dots for open vowels and high, mid, and low tone pitch accents.',
+    sampleGreeting: {
+      native: 'Ẹ n lẹ́ o! Ẹ ku ojúmọ́.',
+      english: 'Hello! Good morning.',
+      pronunciation: 'Eh n leh oh! Eh koo oh-joo-moh'
+    },
+    tonal: true,
+    isLowResource: false,
+  },
+  {
+    code: 'ha',
+    name: 'Hausa',
+    nativeName: 'Harshen Hausa',
+    region: 'Nigeria',
+    country: 'Nigeria, Niger, Ghana, Chad',
+    speakers: '80+ Million',
+    family: 'Afroasiatic (Chadic)',
+    availability: 'High-Resource',
+    supportedTranslationEngines: ['gemini-ai', 'nllb-adapter', 'custom-rule'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['ɓ', 'ɗ', 'ƙ', 'ƴ', 'Ɓ', 'Ɗ', 'Ƙ', 'Ƴ', 'r̃'],
+    description: 'The largest indigenous language of West Africa with widespread trade usage. Written in modern Boko orthography with hooked consonants representing glottalized and implosive phonemes.',
+    sampleGreeting: {
+      native: 'Sannu! Ina kwana?',
+      english: 'Hello! How did you sleep / Good morning?',
+      pronunciation: 'San-noo! Ee-na kwa-na?'
+    },
+    tonal: true,
+    isLowResource: false,
+  },
+  {
+    code: 'ig',
+    name: 'Igbo',
+    nativeName: 'Asụsụ Igbo',
+    region: 'Nigeria',
+    country: 'Southeastern Nigeria',
+    speakers: '30+ Million',
+    family: 'Niger-Congo (Igboid)',
+    availability: 'High-Resource',
+    supportedTranslationEngines: ['gemini-ai', 'nllb-adapter', 'custom-rule'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['ị', 'ọ', 'ụ', 'ṅ', 'gb', 'kp', 'gw', 'kw', 'nw', 'ny', 'sh', 'Ị', 'Ọ', 'Ụ', 'Ṅ'],
+    description: 'A tonal Niger-Congo language featuring vowel harmony, compound verbs, and diacritical under-dots to denote distinct vowel qualities.',
+    sampleGreeting: {
+      native: 'Nnọọ! Kedu ka ị mere?',
+      english: 'Welcome! How are you doing?',
+      pronunciation: 'N-noh! Keh-doo kah ee meh-reh?'
+    },
+    tonal: true,
+    isLowResource: false,
+  },
+  {
+    code: 'urh',
+    name: 'Urhobo',
+    nativeName: 'Ẹvwe rẹ Urhobo',
+    region: 'Nigeria',
+    country: 'Delta State, Niger Delta, Nigeria',
+    speakers: '3+ Million',
+    family: 'Niger-Congo (Edoid)',
+    availability: 'Low-Resource Specialized',
+    supportedTranslationEngines: ['gemini-ai', 'custom-rule', 'hybrid'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['ẹ', 'ọ', 'rh', 'ch', 'dj', 'gb', 'kp', 'vw', 'Ẹ', 'Ọ', 'Vw', 'Dj'],
+    description: 'An Edoid language spoken by the Urhobo people of the Niger Delta region. Features complex consonant clusters (vw, dj, rh) and strict vowel harmony.',
+    sampleGreeting: {
+      native: 'Miguọ! Kẹdọ kọ?',
+      english: 'I greet you on bended knee (Respectful greeting)! How are you?',
+      pronunciation: 'Mee-gwoh! Keh-doh koh?'
+    },
+    tonal: true,
+    isLowResource: true,
+  },
+  {
+    code: 'iso',
+    name: 'Isoko',
+    nativeName: 'Ẹvwe rẹ Isoko',
+    region: 'Nigeria',
+    country: 'Delta & Bayelsa States, Nigeria',
+    speakers: '1.5+ Million',
+    family: 'Niger-Congo (Edoid)',
+    availability: 'Low-Resource Specialized',
+    supportedTranslationEngines: ['gemini-ai', 'custom-rule', 'hybrid'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['ẹ', 'ọ', 'kp', 'gb', 'vw', 'wh', 'Ẹ', 'Ọ'],
+    description: 'Closely related to Urhobo in the Southwestern Edoid group, spoken in Isoko North and South of Delta State with rich oral proverbs.',
+    sampleGreeting: {
+      native: 'Dóo! Otọ rẹ oma?',
+      english: 'Greetings! How is your body / How are you?',
+      pronunciation: 'Doh-oh! Oh-toh reh oh-mah?'
+    },
+    tonal: true,
+    isLowResource: true,
+  },
+  {
+    code: 'igl',
+    name: 'Igala',
+    nativeName: 'Íchí Igala',
+    region: 'Nigeria',
+    country: 'Kogi, Edo, Anambra, Nigeria',
+    speakers: '2+ Million',
+    family: 'Niger-Congo (Yoruboid)',
+    availability: 'Low-Resource Specialized',
+    supportedTranslationEngines: ['gemini-ai', 'custom-rule', 'hybrid'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['ẹ', 'ọ', 'ch', 'gw', 'kw', 'kp', 'gb', 'ñ', 'Ẹ', 'Ọ'],
+    description: 'Spoken primarily in Kogi State across the confluence of rivers Niger and Benue; shares deep ancestral roots with Yoruba and Itsekiri.',
+    sampleGreeting: {
+      native: 'Ágba! Ábu kẹ nẹ?',
+      english: 'Greetings of respect! How are you?',
+      pronunciation: 'Ah-gbah! Ah-boo keh neh?'
+    },
+    tonal: true,
+    isLowResource: true,
+  },
+  {
+    code: 'nup',
+    name: 'Nupe',
+    nativeName: 'Zanka Nupe',
+    region: 'Nigeria',
+    country: 'Niger, Kwara, Kogi, Abuja FCT, Nigeria',
+    speakers: '3.5+ Million',
+    family: 'Niger-Congo (Nupoid)',
+    availability: 'Low-Resource Specialized',
+    supportedTranslationEngines: ['gemini-ai', 'custom-rule', 'hybrid'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['ẹ', 'ọ', 'ts', 'dz', 'kp', 'gb', 'ny', 'Ẹ', 'Ọ'],
+    description: 'Spoken along the middle Niger River basin around Bida. Renowned for its tone pitch contrasts and historic Nupe kingdom literature.',
+    sampleGreeting: {
+      native: 'Kubè! Ké wun yi o?',
+      english: 'Welcome / Greetings! How is it going?',
+      pronunciation: 'Koo-beh! Keh woon yee oh?'
+    },
+    tonal: true,
+    isLowResource: true,
+  },
+  {
+    code: 'kn',
+    name: 'Kanuri',
+    nativeName: 'Kànurí',
+    region: 'Nigeria',
+    country: 'Borno, Yobe (Nigeria), Chad, Niger',
+    speakers: '9+ Million',
+    family: 'Nilo-Saharan (Saharan)',
+    availability: 'Low-Resource Specialized',
+    supportedTranslationEngines: ['gemini-ai', 'custom-rule', 'nllb-adapter'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['ǝ', 'ny', 'sh', 'ng', 'ǝ́', 'ǝ̀'],
+    description: 'A major Saharan language with rich historical legacy in the ancient Kanem-Bornu Empire of northeastern Nigeria and Lake Chad basin.',
+    sampleGreeting: {
+      native: 'Wushé! Ndâ wuro?',
+      english: 'Greetings! How is the home/family?',
+      pronunciation: 'Woo-sheh! N-dah woo-roh?'
+    },
+    tonal: true,
+    isLowResource: true,
+  },
+  {
+    code: 'ebr',
+    name: 'Ebira',
+    nativeName: 'Okene / Ebira',
+    region: 'Nigeria',
+    country: 'Kogi, Edo, Nasarawa, Nigeria',
+    speakers: '1.8+ Million',
+    family: 'Niger-Congo (Nupoid)',
+    availability: 'Low-Resource Specialized',
+    supportedTranslationEngines: ['gemini-ai', 'custom-rule', 'hybrid'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['ẹ', 'ọ', 'ire', 'ẹ́', 'ẹ̀', 'ọ́', 'ọ̀'],
+    description: 'Spoken in Central Kogi State (Okene, Okehi, Adavi) and surrounding regions, rich in woven cloth poetry and masquerade songs.',
+    sampleGreeting: {
+      native: 'Mẹ́yì! Ọnyì nẹ́?',
+      english: 'Greetings! How are things?',
+      pronunciation: 'Meh-yee! Oh-nyee neh?'
+    },
+    tonal: true,
+    isLowResource: true,
+  },
+  {
+    code: 'idu',
+    name: 'Idoma',
+    nativeName: 'Ẹ̀dá Idoma',
+    region: 'Nigeria',
+    country: 'Benue, Nasarawa, Cross River, Nigeria',
+    speakers: '2+ Million',
+    family: 'Niger-Congo (Idomoid)',
+    availability: 'Low-Resource Specialized',
+    supportedTranslationEngines: ['gemini-ai', 'custom-rule', 'hybrid'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['ẹ', 'ọ', 'kp', 'gb', 'ch', 'ny', 'Ẹ', 'Ọ'],
+    description: 'Spoken in the Lower Benue Valley around Otukpo. Characterized by melodic speech contours and strong cultural greeting protocols.',
+    sampleGreeting: {
+      native: 'Aah-ọ! Ole nẹ?',
+      english: 'Warm greetings! How is home?',
+      pronunciation: 'Ah-oh! Oh-leh neh?'
+    },
+    tonal: true,
+    isLowResource: true,
+  },
+  {
+    code: 'ijw',
+    name: 'Ijaw (Ịjọ)',
+    nativeName: 'Ịzọn / Ijo',
+    region: 'Nigeria',
+    country: 'Bayelsa, Rivers, Delta, Ondo, Nigeria',
+    speakers: '3.5+ Million',
+    family: 'Niger-Congo (Ijoid)',
+    availability: 'Low-Resource Specialized',
+    supportedTranslationEngines: ['gemini-ai', 'custom-rule', 'hybrid'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['ị', 'ọ', 'ụ', 'gb', 'kp', 'ḅ', 'ḍ', 'Ị', 'Ọ', 'Ụ'],
+    description: 'An Ijoid branch language of the maritime Niger Delta delta waterways, known for SOV (Subject-Object-Verb) word order.',
+    sampleGreeting: {
+      native: 'Do-o! Kẹrẹ kẹrẹ?',
+      english: 'Greetings of peace! How is everything?',
+      pronunciation: 'Doh-oh! Keh-reh keh-reh?'
+    },
+    tonal: true,
+    isLowResource: true,
+  },
+
+  // ================= OTHER AFRICAN LANGUAGES =================
+  {
+    code: 'sw',
+    name: 'Swahili (Kiswahili)',
+    nativeName: 'Kiswahili',
+    region: 'East Africa',
+    country: 'Kenya, Tanzania, Uganda, Rwanda, DRC',
+    speakers: '150+ Million',
+    family: 'Niger-Congo (Bantu)',
+    availability: 'High-Resource',
+    supportedTranslationEngines: ['gemini-ai', 'nllb-adapter', 'custom-rule'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['ng\'', 'dh', 'gh', 'sh', 'th', 'ch'],
+    description: 'The official lingua franca of the East African Community and African Union, with rich poetic traditions and standard noun classes.',
+    sampleGreeting: {
+      native: 'Jambo! Habari za asubuhi?',
+      english: 'Hello! How is your morning?',
+      pronunciation: 'Jahm-boh! Hah-bah-ree zah ah-soo-boo-hee?'
+    },
+    tonal: false,
+    isLowResource: false,
+  },
+  {
+    code: 'zu',
+    name: 'Zulu (isiZulu)',
+    nativeName: 'isiZulu',
+    region: 'Southern Africa',
+    country: 'South Africa, Zimbabwe, Eswatini',
+    speakers: '28+ Million',
+    family: 'Niger-Congo (Bantu - Nguni)',
+    availability: 'High-Resource',
+    supportedTranslationEngines: ['gemini-ai', 'nllb-adapter', 'custom-rule'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['c', 'q', 'x', 'hl', 'dl', 'gc', 'gq', 'gx'],
+    description: 'The most spoken home language in South Africa, famous for its distinctive click consonants (c, q, x) and agglutinative prefix grammar.',
+    sampleGreeting: {
+      native: 'Sawubona! Unjani?',
+      english: 'I see you (Hello)! How are you?',
+      pronunciation: 'Sah-woo-boh-nah! Oon-jah-nee?'
+    },
+    tonal: true,
+    isLowResource: false,
+  },
+  {
+    code: 'xh',
+    name: 'Xhosa (isiXhosa)',
+    nativeName: 'isiXhosa',
+    region: 'Southern Africa',
+    country: 'South Africa, Lesotho',
+    speakers: '20+ Million',
+    family: 'Niger-Congo (Bantu - Nguni)',
+    availability: 'High-Resource',
+    supportedTranslationEngines: ['gemini-ai', 'nllb-adapter', 'custom-rule'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['c', 'q', 'x', 'rh', 'kr', 'tl', 'hl'],
+    description: 'An Nguni language noted for 18 distinct click sounds, spoken widely across South Africa\'s Eastern Cape province.',
+    sampleGreeting: {
+      native: 'Molo! Kunjani namhlanje?',
+      english: 'Hello! How is everything today?',
+      pronunciation: 'Moh-loh! Koon-jah-nee nahm-hlahn-jeh?'
+    },
+    tonal: true,
+    isLowResource: false,
+  },
+  {
+    code: 'am',
+    name: 'Amharic',
+    nativeName: 'አማርኛ (Amarəñña)',
+    region: 'Horn of Africa',
+    country: 'Ethiopia',
+    speakers: '57+ Million',
+    family: 'Afroasiatic (Semitic)',
+    availability: 'High-Resource',
+    supportedTranslationEngines: ['gemini-ai', 'nllb-adapter', 'custom-rule'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['ሀ', 'ሁ', 'ሂ', 'ሃ', 'ሄ', 'ህ', 'ሆ', 'ለ', 'መ', 'ረ', 'ሰ', 'ሸ'],
+    description: 'The working language of Ethiopia, written in the ancient Ge\'ez Fidel abugida script with centuries of historical manuscripts.',
+    sampleGreeting: {
+      native: 'ሰላም! እንደምን አደሩ?',
+      english: 'Peace / Hello! Good morning.',
+      pronunciation: 'Selam! Endemen aderuk?'
+    },
+    tonal: false,
+    isLowResource: false,
+  },
+  {
+    code: 'so',
+    name: 'Somali',
+    nativeName: 'Af-Soomaali',
+    region: 'Horn of Africa',
+    country: 'Somalia, Somaliland, Djibouti, Ethiopia, Kenya',
+    speakers: '22+ Million',
+    family: 'Afroasiatic (Cushitic)',
+    availability: 'High-Resource',
+    supportedTranslationEngines: ['gemini-ai', 'nllb-adapter', 'custom-rule'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['c', 'x', 'dh', 'kh', 'sh'],
+    description: 'A Cushitic language with a long tradition of oral poetry, written in standard Latin script since 1972.',
+    sampleGreeting: {
+      native: 'Iska warran! Subax wanaagsan.',
+      english: 'What\'s the news / Hello! Good morning.',
+      pronunciation: 'Ees-kah wahr-rahn! Soo-bah wah-nahg-sahn'
+    },
+    tonal: true,
+    isLowResource: false,
+  },
+  {
+    code: 'af',
+    name: 'Afrikaans',
+    nativeName: 'Afrikaans',
+    region: 'Southern Africa',
+    country: 'South Africa, Namibia',
+    speakers: '17+ Million',
+    family: 'Indo-European (Germanic)',
+    availability: 'High-Resource',
+    supportedTranslationEngines: ['gemini-ai', 'nllb-adapter', 'custom-rule'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['ë', 'ê', 'ï', 'ô', 'û', 'é', 'è', 'Ê', 'Ë', 'Ô'],
+    description: 'A daughter language of Dutch developed in Southern Africa with simplified grammar and indigenous Khoisan and Malay influences.',
+    sampleGreeting: {
+      native: 'Goeie dag! Hoe gaan dit?',
+      english: 'Good day! How is it going?',
+      pronunciation: 'Ghoo-ee-eh dahg! Hoo khahn dit?'
+    },
+    tonal: false,
+    isLowResource: false,
+  },
+  {
+    code: 'ln',
+    name: 'Lingala',
+    nativeName: 'Lingála',
+    region: 'Central Africa',
+    country: 'DR Congo, Republic of Congo, Angola',
+    speakers: '45+ Million',
+    family: 'Niger-Congo (Bantu)',
+    availability: 'AI & Custom Engine',
+    supportedTranslationEngines: ['gemini-ai', 'nllb-adapter', 'custom-rule'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['ɛ', 'ɔ', 'á', 'à', 'â', 'é', 'è', 'ê', 'ó', 'ò', 'ô', 'Ɛ', 'Ɔ'],
+    description: 'The vibrant musical lingua franca of the Congo River basin and African Soukous/Rumba, with rich tone and vowel harmonization.',
+    sampleGreeting: {
+      native: 'Mbote! Sango nini?',
+      english: 'Hello! What\'s the news / How are you?',
+      pronunciation: 'M-boh-teh! Sahn-goh nee-nee?'
+    },
+    tonal: true,
+    isLowResource: false,
+  },
+  {
+    code: 'wo',
+    name: 'Wolof',
+    nativeName: 'Wolof',
+    region: 'West Africa',
+    country: 'Senegal, The Gambia, Mauritania',
+    speakers: '12+ Million',
+    family: 'Niger-Congo (Senegambian)',
+    availability: 'AI & Custom Engine',
+    supportedTranslationEngines: ['gemini-ai', 'nllb-adapter', 'custom-rule'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['ñ', 'ŋ', 'é', 'ë', 'ó', 'à', 'Ñ', 'Ŋ'],
+    description: 'The dominant national language of Senegal, known for its rich Griot oral history and urban Dakar variations.',
+    sampleGreeting: {
+      native: 'Nanga def? Jàmm nga am.',
+      english: 'How are you? I hope you are in peace.',
+      pronunciation: 'Nahn-gah dehf? Jahm ngah ahm'
+    },
+    tonal: false,
+    isLowResource: false,
+  },
+  {
+    code: 'rw',
+    name: 'Kinyarwanda',
+    nativeName: 'Ikinyarwanda',
+    region: 'East Africa',
+    country: 'Rwanda, DRC, Uganda',
+    speakers: '13+ Million',
+    family: 'Niger-Congo (Bantu)',
+    availability: 'AI & Custom Engine',
+    supportedTranslationEngines: ['gemini-ai', 'nllb-adapter', 'custom-rule'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['cy', 'jy', 'shy', 'rw', 'mw'],
+    description: 'The universal language of Rwanda featuring complex high/low tone pitch accents and rich poetic proverb structures.',
+    sampleGreeting: {
+      native: 'Muraho! Amakuru ki?',
+      english: 'Hello! What is the news / How are you?',
+      pronunciation: 'Moo-rah-hoh! Ah-mah-koo-roo kee?'
+    },
+    tonal: true,
+    isLowResource: false,
+  },
+
+  // ================= PIVOT / INTERNATIONAL LANGUAGES =================
+  {
+    code: 'en',
+    name: 'English',
+    nativeName: 'English',
+    region: 'International',
+    country: 'Global / Official in 24 African nations',
+    speakers: '1.5+ Billion',
+    family: 'Indo-European (Germanic)',
+    availability: 'High-Resource',
+    supportedTranslationEngines: ['gemini-ai', 'nllb-adapter', 'custom-rule'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: [],
+    description: 'Global lingua franca and official medium of administration and academia across Anglophone Africa.',
+    sampleGreeting: {
+      native: 'Hello! Good morning, how are you?',
+      english: 'Hello! Good morning, how are you?',
+      pronunciation: 'Heh-loh'
+    },
+    tonal: false,
+    isLowResource: false,
+  },
+  {
+    code: 'fr',
+    name: 'French (Français)',
+    nativeName: 'Français',
+    region: 'International',
+    country: 'Official across 21 Francophone African nations',
+    speakers: '300+ Million',
+    family: 'Indo-European (Romance)',
+    availability: 'High-Resource',
+    supportedTranslationEngines: ['gemini-ai', 'nllb-adapter', 'custom-rule'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['é', 'è', 'ê', 'ë', 'à', 'â', 'ç', 'î', 'ï', 'ô', 'ù', 'û'],
+    description: 'Widespread official language across Francophone West and Central Africa.',
+    sampleGreeting: {
+      native: 'Bonjour! Comment allez-vous?',
+      english: 'Hello! How are you?',
+      pronunciation: 'Bohn-zhoor! Koh-mahn tah-lay voo?'
+    },
+    tonal: false,
+    isLowResource: false,
+  },
+  {
+    code: 'ar',
+    name: 'Arabic (العربية)',
+    nativeName: 'العربية (Al-ʿArabīyyah)',
+    region: 'International',
+    country: 'North Africa, Horn of Africa, Chad, Sudan',
+    speakers: '400+ Million',
+    family: 'Afroasiatic (Semitic)',
+    availability: 'High-Resource',
+    supportedTranslationEngines: ['gemini-ai', 'nllb-adapter', 'custom-rule'],
+    speechToTextAvailability: true,
+    textToSpeechAvailability: true,
+    specialCharacters: ['ا', 'ب', 'ت', 'ث', 'ج', 'ح', 'خ', 'د', 'ذ', 'ر', 'ز', 'س', 'ش', 'ص', 'ض', 'ط', 'ظ', 'ع', 'غ', 'ف', 'ق', 'ك', 'ل', 'م', 'ن', 'ه', 'و', 'ي'],
+    description: 'Major language of North Africa and historical scholarship across the Sahel region.',
+    sampleGreeting: {
+      native: 'السَّلَامُ عَلَيْكُمْ (As-salāmu ʿalaykum)',
+      english: 'Peace be upon you (Greetings)!',
+      pronunciation: 'Ahs-sah-lah-moo ah-lay-koom'
+    },
+    tonal: false,
+    isLowResource: false,
+  }
+];
+
+export const hasLanguage = (code: string): boolean => {
+  if (!code) return false;
+  return LANGUAGE_REGISTRY.some((l) => l.code.toLowerCase() === code.toLowerCase());
+};
+
+export const isValidLanguageCode = hasLanguage;
+
+export const getAllLanguageCodes = (): string[] => {
+  return LANGUAGE_REGISTRY.map((l) => l.code);
+};
+
+export const getLanguageByCode = (code: string): LanguageInfo => {
+  const found = LANGUAGE_REGISTRY.find((l) => l.code.toLowerCase() === code.toLowerCase());
+  if (found) return found;
+  return LANGUAGE_REGISTRY[0]; // fallback to Yoruba
+};
+
+export const getNigerianLanguages = (): LanguageInfo[] => {
+  return LANGUAGE_REGISTRY.filter((l) => l.region === 'Nigeria');
+};
+
+export const getOtherAfricanLanguages = (): LanguageInfo[] => {
+  return LANGUAGE_REGISTRY.filter((l) => l.region !== 'Nigeria' && l.region !== 'International');
+};
+
+export const getLowResourceLanguages = (): LanguageInfo[] => {
+  return LANGUAGE_REGISTRY.filter((l) => l.isLowResource);
+};

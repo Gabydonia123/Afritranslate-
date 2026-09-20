@@ -1,0 +1,20 @@
+[
+  {
+    "id": "usr_demo_african_linguist",
+    "email": "user@africanlanguages.org",
+    "name": "African Linguist",
+    "salt": "14235e6c9139587d34ec432d0dd33ec9",
+    "hash": "d6fd1022a0960afaef20af5dffefcea122c3c606ea40972ff75c758e26f7e9233cd336fff964391365c28aee90a004ea7bc23387a013f723a3d533b1c31f7dfa",
+    "createdAt": "2026-09-14T16:45:18.657Z",
+    "lastLoginAt": "2026-09-14T16:45:25.654Z"
+  },
+  {
+    "id": "usr_1789404331323_070a1473",
+    "email": "gabrieletu40@gmail.com",
+    "name": "Gabriel Etu",
+    "salt": "09b367c3e11425c1ad4711712379bca5",
+    "hash": "b055b1ae006ae6efa05c12d215401f32a9eee771b7758a218fbef1b42b90c8c4387255e5205f7cba4e644e9e16e8ca15b2f14a3f680aae7df1d6b2a3e5eec64a",
+    "createdAt": "2026-09-14T16:45:31.323Z",
+    "lastLoginAt": "2026-09-14T16:45:35.514Z"
+  }
+]

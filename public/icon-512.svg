@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="africanGrad512" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ea580c"/>
+      <stop offset="50%" stop-color="#d97706"/>
+      <stop offset="100%" stop-color="#059669"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="112" fill="#0c0a09"/>
+  <circle cx="256" cy="256" r="192" fill="url(#africanGrad512)" opacity="0.18" />
+  <circle cx="256" cy="256" r="144" stroke="url(#africanGrad512)" stroke-width="10" fill="none"/>
+  
+  <!-- Stylized African Globe and Talking Drum waves -->
+  <path d="M256 112 C176 112 112 176 112 256 C112 336 176 400 256 400 C336 400 400 336 400 256 C400 176 336 112 256 112 Z" fill="none" stroke="#f59e0b" stroke-width="14"/>
+  <path d="M112 256 H400" stroke="#f59e0b" stroke-width="10" stroke-linecap="round"/>
+  <path d="M256 112 C208 160 188 214 188 256 C188 298 208 352 256 400 C304 352 324 298 324 256 C324 214 304 160 256 112 Z" fill="none" stroke="#f59e0b" stroke-width="10"/>
+  <circle cx="256" cy="256" r="22" fill="#fbbf24"/>
+</svg>

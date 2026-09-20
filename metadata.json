@@ -1,0 +1,7 @@
+{
+  "name": "Indigenous Language Translator",
+  "description": "Progressive Web Application for translating African indigenous languages (Hausa, Yoruba, Igbo, Urhobo, Isoko, Kanuri, Swahili, and more) across text, voice, and audio with modular translation adapters.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
