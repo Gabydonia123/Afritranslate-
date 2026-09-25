@@ -1,0 +1,6 @@
+{
+  "summary":  "Implementation plan to alphabetize English alongside all languages in selectors, auto-select Google Translate with a Recommended badge, and provide automatic fallback to Gemini AI and indigenous lexicons for dialect coverage.",
+  "updatedAt":  "2026-09-25T13:43:35.563788957Z",
+  "requestFeedback":  true,
+  "userFacing":  true
+}

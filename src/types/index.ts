@@ -2,7 +2,16 @@ export type LanguageRegion = 'Nigeria' | 'East Africa' | 'West Africa' | 'Southe
 
 export type LanguageAvailability = 'High-Resource' | 'AI & Custom Engine' | 'Low-Resource Specialized';
 
-export type TranslationEngineType = 'gemini-ai' | 'nllb-adapter' | 'custom-rule' | 'hybrid' | 'mock';
+export type TranslationEngineType = 'google-translate' | 'gemini-ai' | 'nllb-adapter' | 'custom-rule' | 'hybrid' | 'mock';
+
+export interface TranslationSourceItem {
+  name: string;
+  engine: TranslationEngineType;
+  translatedText: string;
+  tier: 'primary' | 'secondary' | 'tertiary';
+  confidence?: number;
+  notes?: string;
+}
 
 export interface LanguageInfo {
   code: string;
@@ -25,6 +34,7 @@ export interface LanguageInfo {
   };
   tonal: boolean;
   isLowResource: boolean;
+  triggersCustomLexiconFallback?: boolean;
 }
 
 export interface TranslationRequest {
@@ -32,6 +42,8 @@ export interface TranslationRequest {
   targetLanguage: string; // language code
   text: string;
   preferredEngine?: TranslationEngineType;
+  isContextLocked?: boolean;
+  contextPrompt?: string;
 }
 
 export interface TranslationResponse {
@@ -46,6 +58,12 @@ export interface TranslationResponse {
   phoneticSpelling?: string;
   processingTimeMs?: number;
   detectedSourceTones?: string[];
+  sources?: TranslationSourceItem[];
+  activeSourceIndex?: number;
+  isDialectFallback?: boolean;
+  recommendedEngine?: string;
+  isContextLocked?: boolean;
+  lockedContextLabel?: string;
 }
 
 export interface SpeechToTextRequest {

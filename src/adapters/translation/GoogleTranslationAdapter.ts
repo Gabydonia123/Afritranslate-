@@ -2,35 +2,16 @@ import { TranslationProvider, TranslationOptions } from './ITranslationAdapter';
 import { TranslationResponse, TranslationRequest } from '../../types';
 import { getLanguageByCode } from '../../config/languages';
 
-const NLLB_LANGUAGE_MAP: Record<string, string> = {
-  yo: 'yor_Latn',
-  ha: 'hau_Latn',
-  ig: 'ibo_Latn',
-  sw: 'swh_Latn',
-  zu: 'zul_Latn',
-  xh: 'xho_Latn',
-  am: 'amh_Ethi',
-  so: 'som_Latn',
-  af: 'afr_Latn',
-  ln: 'lin_Latn',
-  wo: 'wol_Latn',
-  rw: 'kin_Latn',
-  kn: 'knc_Latn',
-  en: 'eng_Latn',
-  fr: 'fra_Latn',
-  ar: 'arb_Arab',
-};
-
-export class NLLBTranslationAdapter implements TranslationProvider {
-  readonly id = 'nllb-adapter' as const;
-  readonly name = 'NLLB Multilingual Neural Adapter';
+export class GoogleTranslationAdapter implements TranslationProvider {
+  readonly id = 'google-translate' as const;
+  readonly name = 'Google Translate Engine';
 
   async isAvailable(): Promise<boolean> {
     return typeof navigator !== 'undefined' ? navigator.onLine : true;
   }
 
   canHandle(sourceLang: string, targetLang: string): boolean {
-    return Boolean(NLLB_LANGUAGE_MAP[sourceLang] && NLLB_LANGUAGE_MAP[targetLang]);
+    return sourceLang !== targetLang;
   }
 
   async translate(
@@ -47,9 +28,6 @@ export class NLLBTranslationAdapter implements TranslationProvider {
     const sourceInfo = getLanguageByCode(srcLang);
     const targetInfo = getLanguageByCode(tgtLang);
 
-    const sourceNllbCode = NLLB_LANGUAGE_MAP[srcLang];
-    const targetNllbCode = NLLB_LANGUAGE_MAP[tgtLang];
-
     try {
       const response = await fetch('/api/translate', {
         method: 'POST',
@@ -59,45 +37,44 @@ export class NLLBTranslationAdapter implements TranslationProvider {
           targetLanguage: tgtLang,
           sourceLanguageName: options?.sourceLanguageName || sourceInfo.name,
           targetLanguageName: options?.targetLanguageName || targetInfo.name,
-          sourceNllbCode,
-          targetNllbCode,
           text: text,
-          preferredEngine: 'nllb-adapter',
+          preferredEngine: 'google-translate',
+          isContextLocked: options?.isContextLocked ?? true,
+          contextPrompt: options?.contextPrompt,
         }),
       });
 
       if (!response.ok) {
-        throw new Error(`NLLB backend error: ${response.statusText}`);
+        throw new Error(`Google Translate backend error: ${response.statusText}`);
       }
 
       const data = await response.json();
+      if (!data.success) {
+        throw new Error(data.error || 'Translation returned unsuccessful status.');
+      }
+
       const processingTime = Math.round(performance.now() - startTime);
 
       return {
         translatedText: data.translatedText || '',
         sourceLanguage: srcLang,
         targetLanguage: tgtLang,
-        engine: 'nllb-adapter',
-        confidence: data.confidence ?? 0.94,
+        engine: data.engine || 'google-translate',
+        confidence: data.confidence ?? 0.98,
         success: true,
-        linguisticNotes: data.linguisticNotes || `NLLB neural matrix (${sourceNllbCode} → ${targetNllbCode}) token sequence.`,
-        phoneticSpelling: data.phoneticSpelling,
+        linguisticNotes: data.linguisticNotes || `${sourceInfo.name} → ${targetInfo.name} translated via Google Translate.`,
+        phoneticSpelling: data.phoneticSpelling || '',
         processingTimeMs: processingTime,
+        detectedSourceTones: data.detectedSourceTones || [],
         sources: data.sources || [],
+        isDialectFallback: data.isDialectFallback ?? false,
+        recommendedEngine: data.recommendedEngine || 'google-translate',
+        isContextLocked: data.isContextLocked ?? true,
+        lockedContextLabel: data.lockedContextLabel,
       };
-    } catch (err) {
-      console.warn('NLLB Adapter network call failed:', err);
-      const processingTime = Math.round(performance.now() - startTime);
-      return {
-        translatedText: '',
-        sourceLanguage: srcLang,
-        targetLanguage: tgtLang,
-        engine: 'nllb-adapter',
-        confidence: 0,
-        success: false,
-        error: 'Translation service is temporarily unavailable for the selected NLLB pair.',
-        processingTimeMs: processingTime,
-      };
+    } catch (err: any) {
+      console.warn('Google Translation provider error, propagating for fallback handler:', err);
+      throw err;
     }
   }
 }

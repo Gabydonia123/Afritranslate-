@@ -67,6 +67,7 @@ export class AITranslationAdapter implements TranslationProvider {
         phoneticSpelling: data.phoneticSpelling || '',
         processingTimeMs: processingTime,
         detectedSourceTones: data.detectedSourceTones || [],
+        sources: data.sources || [],
       };
     } catch (err: any) {
       console.warn('AI Translation provider endpoint error, propagating for fallback handler:', err);

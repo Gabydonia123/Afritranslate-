@@ -10,6 +10,7 @@ import {
   ChevronDown,
   Globe2,
   AlertTriangle,
+  Zap,
 } from 'lucide-react';
 import { useTranslation } from '../hooks/useTranslation';
 import { LanguageSelectorModal } from './LanguageSelectorModal';
@@ -25,6 +26,17 @@ interface TranslationWorkspaceProps {
   externalTargetLang?: string;
   externalText?: string;
 }
+
+const QUICK_LANGUAGE_PILLS = [
+  { code: 'en', name: 'English' },
+  { code: 'yo', name: 'Yorùbá' },
+  { code: 'ha', name: 'Hausa' },
+  { code: 'ig', name: 'Igbo' },
+  { code: 'sw', name: 'Swahili' },
+  { code: 'urh', name: 'Urhobo' },
+  { code: 'am', name: 'Amharic' },
+  { code: 'zu', name: 'Zulu' },
+];
 
 export const TranslationWorkspace: React.FC<TranslationWorkspaceProps> = ({
   externalSourceLang,
@@ -42,6 +54,10 @@ export const TranslationWorkspace: React.FC<TranslationWorkspaceProps> = ({
     isLoading,
     error,
     linguisticNotes,
+    sources,
+    activeSourceIndex,
+    isDialectFallback,
+    handleSelectSource,
     handleSwapLanguages,
     handleTranslate,
     handleClear,
@@ -69,6 +85,8 @@ export const TranslationWorkspace: React.FC<TranslationWorkspaceProps> = ({
 
   const sourceInfo = getLanguageByCode(sourceLang);
   const targetInfo = getLanguageByCode(targetLang);
+
+  const isDialectPair = sourceInfo.isLowResource || targetInfo.isLowResource || isDialectFallback;
 
   const handleCopy = () => {
     if (!translatedText) return;
@@ -111,10 +129,10 @@ export const TranslationWorkspace: React.FC<TranslationWorkspaceProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Workspace Card Container */}
         <div className="bg-stone-900 border border-stone-800 rounded-3xl shadow-2xl overflow-hidden">
-          {/* Top Bar: Language Selectors & Swap */}
-          <div className="p-3 sm:p-4 bg-stone-900/90 border-b border-stone-800 flex items-center justify-between gap-3">
+          {/* Top Bar: Language Selectors, Swap, & Recommended Translator Engine Indicator */}
+          <div className="p-3 sm:p-4 bg-stone-900/95 border-b border-stone-800 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
             {/* Language Selection Buttons & Swap */}
-            <div className="flex items-center space-x-2 w-full justify-between sm:justify-start">
+            <div className="flex items-center space-x-2 flex-1 justify-between sm:justify-start">
               {/* Source Language Button */}
               <button
                 id="source-language-selector-btn"
@@ -122,10 +140,10 @@ export const TranslationWorkspace: React.FC<TranslationWorkspaceProps> = ({
                 className="flex-1 sm:flex-none flex items-center justify-between space-x-2 px-3.5 py-2 rounded-xl bg-stone-800/90 hover:bg-stone-750 border border-stone-700 hover:border-amber-500/50 text-stone-100 transition shadow-xs"
               >
                 <div className="flex items-center space-x-2">
-                  <span className="w-2 h-2 rounded-full bg-amber-400" />
+                  <span className={`w-2 h-2 rounded-full ${sourceLang === 'en' ? 'bg-emerald-400' : 'bg-amber-400'}`} />
                   <div className="text-left">
                     <div className="text-[10px] text-stone-400 font-medium uppercase tracking-wider">From</div>
-                    <div className="text-xs sm:text-sm font-bold truncate max-w-[130px] sm:max-w-[180px]">
+                    <div className="text-xs sm:text-sm font-bold truncate max-w-[120px] sm:max-w-[170px]">
                       {sourceInfo.name}
                     </div>
                   </div>
@@ -151,10 +169,10 @@ export const TranslationWorkspace: React.FC<TranslationWorkspaceProps> = ({
                 className="flex-1 sm:flex-none flex items-center justify-between space-x-2 px-3.5 py-2 rounded-xl bg-stone-800/90 hover:bg-stone-750 border border-stone-700 hover:border-amber-500/50 text-stone-100 transition shadow-xs"
               >
                 <div className="flex items-center space-x-2">
-                  <span className="w-2 h-2 rounded-full bg-orange-400" />
+                  <span className={`w-2 h-2 rounded-full ${targetLang === 'en' ? 'bg-emerald-400' : 'bg-orange-400'}`} />
                   <div className="text-left">
                     <div className="text-[10px] text-stone-400 font-medium uppercase tracking-wider">To</div>
-                    <div className="text-xs sm:text-sm font-bold truncate max-w-[130px] sm:max-w-[180px]">
+                    <div className="text-xs sm:text-sm font-bold truncate max-w-[120px] sm:max-w-[170px]">
                       {targetInfo.name}
                     </div>
                   </div>
@@ -162,7 +180,79 @@ export const TranslationWorkspace: React.FC<TranslationWorkspaceProps> = ({
                 <ChevronDown className="w-4 h-4 text-stone-400 shrink-0" />
               </button>
             </div>
+
+            {/* Recommended Engine Indicator */}
+            <div className="flex items-center space-x-2 shrink-0 self-end md:self-auto">
+              <div
+                className="flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-stone-950/80 border border-stone-800 text-xs shadow-xs"
+                title="Google Translate is auto-selected as the primary neural translation engine for African and global languages, with automatic AI fallback for regional dialects."
+              >
+                <span className="text-[11px] text-stone-400">Translator:</span>
+                <span className="font-semibold text-stone-200 flex items-center space-x-1">
+                  <span>Google Translate</span>
+                </span>
+                <span className="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold uppercase tracking-wider flex items-center space-x-1">
+                  <Sparkles className="w-2.5 h-2.5 text-emerald-400" />
+                  <span>Recommended</span>
+                </span>
+              </div>
+            </div>
           </div>
+
+          {/* Quick Language Switcher Bar with English always front & center */}
+          <div className="px-4 py-2 bg-stone-950/40 border-b border-stone-800/60 flex items-center space-x-2 overflow-x-auto no-scrollbar text-xs">
+            <span className="text-[11px] text-stone-500 shrink-0 font-medium">Quick Select:</span>
+            {QUICK_LANGUAGE_PILLS.map((pill) => {
+              const isSource = pill.code === sourceLang;
+              const isTarget = pill.code === targetLang;
+              return (
+                <div key={pill.code} className="flex items-center space-x-1 shrink-0">
+                  <button
+                    onClick={() => {
+                      if (pill.code !== targetLang) {
+                        setSourceLang(pill.code);
+                      } else {
+                        handleSwapLanguages();
+                      }
+                    }}
+                    className={`px-2.5 py-1 rounded-lg text-xs font-medium border transition flex items-center space-x-1 ${
+                      isSource
+                        ? 'bg-amber-500/20 text-amber-300 border-amber-500/60 font-semibold'
+                        : isTarget
+                        ? 'bg-orange-500/20 text-orange-300 border-orange-500/60 font-semibold'
+                        : 'bg-stone-800/60 text-stone-400 hover:text-stone-200 border-stone-750 hover:bg-stone-800'
+                    }`}
+                    title={`Set ${pill.name} as source language`}
+                  >
+                    <span>{pill.name}</span>
+                    {pill.code === 'en' && (
+                      <span className="text-[9px] px-1 py-0.2 bg-emerald-950/80 text-emerald-300 border border-emerald-800/40 rounded">
+                        EN
+                      </span>
+                    )}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Automatic Dialect Fallback Notice (When low-resource dialect selected or fallback occurred) */}
+          {isDialectPair && (
+            <div className="px-4 py-2.5 bg-gradient-to-r from-amber-950/40 via-stone-900 to-amber-950/30 border-b border-stone-800 flex items-center justify-between text-xs text-stone-300 animate-fadeIn">
+              <div className="flex items-center space-x-2">
+                <Zap className="w-3.5 h-3.5 text-amber-400 shrink-0" />
+                <div>
+                  <span className="font-semibold text-amber-300 mr-1.5">Indigenous Dialect Support:</span>
+                  <span className="text-stone-300 text-[11px] sm:text-xs">
+                    {sourceInfo.isLowResource ? sourceInfo.name : targetInfo.name} is a regional indigenous dialect. Automatically routing through Gemini AI computational linguist and authentic lexicons for accurate tone diacritics.
+                  </span>
+                </div>
+              </div>
+              <span className="hidden md:inline-block px-2 py-0.5 rounded bg-amber-500/10 border border-amber-500/30 text-amber-300 text-[10px] font-semibold uppercase tracking-wider shrink-0">
+                AI + Lexicon Fallback
+              </span>
+            </div>
+          )}
 
           {/* Main Dual Translation Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-stone-800">
@@ -171,8 +261,13 @@ export const TranslationWorkspace: React.FC<TranslationWorkspaceProps> = ({
               {/* Source Header Info */}
               <div className="px-4 py-2.5 bg-stone-950/40 border-b border-stone-800/80 flex items-center justify-between text-xs text-stone-400">
                 <div className="flex items-center space-x-2">
-                  <span className="font-semibold text-stone-300">{sourceInfo.name}</span>
+                  <span className="font-semibold text-stone-200">{sourceInfo.name}</span>
                   <span className="text-stone-500">({sourceInfo.nativeName})</span>
+                  {sourceLang === 'en' && (
+                    <span className="px-1.5 py-0.2 rounded bg-emerald-950 text-emerald-300 border border-emerald-800/40 text-[10px]">
+                      Source
+                    </span>
+                  )}
                 </div>
                 <div className="flex items-center space-x-2">
                   {inputText && (
@@ -201,7 +296,7 @@ export const TranslationWorkspace: React.FC<TranslationWorkspaceProps> = ({
                       handleTranslate();
                     }
                   }}
-                  placeholder={`Enter text in ${sourceInfo.name} or use voice dictation...`}
+                  placeholder={`Enter text in ${sourceInfo.name} or click Voice dictation...`}
                   className="w-full flex-1 bg-transparent text-stone-100 placeholder-stone-500 resize-none focus:outline-none text-base sm:text-lg leading-relaxed min-h-[180px]"
                 />
               </div>
@@ -279,7 +374,30 @@ export const TranslationWorkspace: React.FC<TranslationWorkspaceProps> = ({
                 <div className="flex items-center space-x-2">
                   <span className="font-semibold text-amber-300">{targetInfo.name}</span>
                   <span className="text-stone-500">({targetInfo.nativeName})</span>
+                  {targetLang === 'en' && (
+                    <span className="px-1.5 py-0.2 rounded bg-emerald-950 text-emerald-300 border border-emerald-800/40 text-[10px]">
+                      Target
+                    </span>
+                  )}
                 </div>
+                {sources && sources.length > 0 && (
+                  <div className="flex items-center space-x-1.5 text-[11px]">
+                    <span className="text-stone-500">Source:</span>
+                    <span className="font-medium text-amber-400">
+                      {sources[activeSourceIndex]?.name || 'Google Translate'}
+                    </span>
+                    {sources[activeSourceIndex]?.engine === 'google-translate' && (
+                      <span className="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[9px] font-bold uppercase">
+                        Recommended
+                      </span>
+                    )}
+                    {sources[activeSourceIndex]?.engine === 'gemini-ai' && isDialectPair && (
+                      <span className="px-1.5 py-0.2 rounded bg-amber-500/20 text-amber-300 border border-amber-500/40 text-[9px] font-semibold">
+                        Dialect AI
+                      </span>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* Output Content Area */}
@@ -304,6 +422,42 @@ export const TranslationWorkspace: React.FC<TranslationWorkspaceProps> = ({
                     <div className="text-stone-100 text-base sm:text-lg leading-relaxed font-medium">
                       {translatedText}
                     </div>
+
+                    {/* Multi-Source Switch Pills (Source 1: Google Translate, Source 2: Gemini AI, Source 3: Lexicon) */}
+                    {sources && sources.length > 1 && (
+                      <div className="pt-2 border-t border-stone-800/60">
+                        <div className="text-[11px] font-semibold text-stone-400 mb-1.5 flex items-center justify-between">
+                          <span>Multi-Source Comparison:</span>
+                          <span className="text-[10px] text-stone-500 font-normal">Click to compare translations</span>
+                        </div>
+                        <div className="flex flex-wrap gap-1.5">
+                          {sources.map((src, idx) => {
+                            const isGoogle = src.engine === 'google-translate';
+                            return (
+                              <button
+                                key={src.name + idx}
+                                onClick={() => handleSelectSource(idx)}
+                                className={`px-2.5 py-1 rounded-lg text-xs font-medium border transition flex items-center space-x-1.5 ${
+                                  activeSourceIndex === idx
+                                    ? 'bg-amber-500/20 text-amber-300 border-amber-500/50 shadow-xs'
+                                    : 'bg-stone-800/80 text-stone-400 hover:text-stone-200 border-stone-700/80 hover:bg-stone-800'
+                                }`}
+                                title={`View translation from ${src.name}`}
+                              >
+                                <span className={`w-1.5 h-1.5 rounded-full ${activeSourceIndex === idx ? 'bg-amber-400' : 'bg-stone-500'}`} />
+                                <span>{src.name}</span>
+                                {isGoogle && (
+                                  <span className="px-1.5 py-0.2 rounded bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[9px] font-bold">
+                                    Recommended
+                                  </span>
+                                )}
+                                {activeSourceIndex === idx && <Check className="w-3 h-3 text-amber-400 ml-0.5" />}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
 
                     {/* Linguistic Notes Breakdown */}
                     {linguisticNotes && (

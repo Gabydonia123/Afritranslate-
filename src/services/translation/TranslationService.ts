@@ -1,4 +1,5 @@
 import { TranslationProvider } from '../../adapters/translation/ITranslationAdapter';
+import { GoogleTranslationAdapter } from '../../adapters/translation/GoogleTranslationAdapter';
 import { AITranslationAdapter } from '../../adapters/translation/AITranslationAdapter';
 import { NLLBTranslationAdapter } from '../../adapters/translation/NLLBTranslationAdapter';
 import { CustomLanguageAdapter } from '../../adapters/translation/CustomLanguageAdapter';
@@ -14,6 +15,7 @@ export class TranslationService {
   private providers: Map<TranslationEngineType, TranslationProvider> = new Map();
 
   constructor() {
+    this.registerProvider(new GoogleTranslationAdapter());
     this.registerProvider(new AITranslationAdapter());
     this.registerProvider(new NLLBTranslationAdapter());
     this.registerProvider(new CustomLanguageAdapter());
@@ -44,6 +46,7 @@ export class TranslationService {
   /**
    * Intelligently selects the optimal translation engine based on language configuration,
    * resource availability tier, network status, and user override preferences.
+   * Prioritizes Google Translate as Source 1, Gemini AI as Source 2, and Custom Lexicon/NLLB as Source 3.
    */
   public selectBestEngine(
     sourceLang: string,
@@ -69,17 +72,8 @@ export class TranslationService {
       }
     }
 
-    const srcInfo = getLanguageByCode(sourceLang);
-    const tgtInfo = getLanguageByCode(targetLang);
-
-    // If either language is Low-Resource (Urhobo, Isoko, Nupe, Igala, Ebira, Kanuri, Idoma, Ijaw),
-    // route to Gemini Indigenous AI or Custom Rule Morphological Lexicon
-    if (srcInfo.isLowResource || tgtInfo.isLowResource) {
-      return 'gemini-ai';
-    }
-
-    // High-resource pairs default to AI for superior tone and cultural context
-    return 'gemini-ai';
+    // All sources have Google Translate as Source 1!
+    return 'google-translate';
   }
 
   /**
@@ -152,6 +146,8 @@ export class TranslationService {
           preferredEngine: engineId,
           sourceLanguageName: srcInfo.name,
           targetLanguageName: tgtInfo.name,
+          isContextLocked: request.isContextLocked ?? true,
+          contextPrompt: request.contextPrompt || `Translate this ${srcInfo.name} phrase: "${request.text}" into ${tgtInfo.name} only.`,
         }
       );
 
@@ -163,7 +159,25 @@ export class TranslationService {
     } catch (primaryErr: any) {
       console.warn(`Translation attempt with provider [${engineId}] failed:`, primaryErr);
 
-      // Fallback Tier 1: Custom Rule Lexicon
+      // Fallback Tier 1: Gemini AI Model
+      const aiProvider = this.providers.get('gemini-ai');
+      if (aiProvider && engineId !== 'gemini-ai') {
+        try {
+          const aiResult = await aiProvider.translate(
+            request.text,
+            request.sourceLanguage,
+            request.targetLanguage,
+            { preferredEngine: 'gemini-ai', sourceLanguageName: srcInfo.name, targetLanguageName: tgtInfo.name }
+          );
+          if (aiResult.success && aiResult.translatedText) {
+            return aiResult;
+          }
+        } catch (aiErr) {
+          console.warn('Gemini AI fallback failed:', aiErr);
+        }
+      }
+
+      // Fallback Tier 2: Custom Rule Lexicon
       const customProvider = this.providers.get('custom-rule');
       if (customProvider && engineId !== 'custom-rule') {
         try {

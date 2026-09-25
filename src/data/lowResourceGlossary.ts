@@ -41,7 +41,12 @@ export const LOW_RESOURCE_RULES: Record<string, LanguageRule> = {
       'speak': 'ta ẹvwe',
       'god': 'Ọghẹnẹ',
       'king': 'Ovie',
-      'market': 'Eki'
+      'market': 'Eki',
+      'mother': 'Oni',
+      'father': 'Ọsẹ',
+      'grandmother': 'Oni-ọrọde / Inene',
+      'grandfather': 'Ọsẹ-ọrọde / Itebe',
+      'cat': 'Ẹkpatá / Ologbo'
     },
     orthographyNotes: 'Uses sub-dots (ẹ, ọ) and digraphs: rh (voiceless alveolar trill), vw (voiced labiodental approximant), dj (affricate).'
   },

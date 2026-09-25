@@ -16,6 +16,7 @@ const REGION_FILTERS: Array<LanguageRegion | 'All'> = [
   'Horn of Africa',
   'Central Africa',
   'West Africa',
+  'International',
 ];
 
 export const SupportedLanguagesSection: React.FC<SupportedLanguagesSectionProps> = ({
@@ -38,7 +39,7 @@ export const SupportedLanguagesSection: React.FC<SupportedLanguagesSectionProps>
         lang.family.toLowerCase().includes(q);
 
       return matchesFilter && matchesSearch;
-    });
+    }).sort((a, b) => a.name.localeCompare(b.name));
   }, [activeFilter, searchQuery]);
 
   const handlePlaySample = (text: string, langCode: string) => {

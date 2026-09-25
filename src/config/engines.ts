@@ -24,9 +24,24 @@ export interface SpeechEngineMetadata {
 }
 
 export const TRANSLATION_ENGINES: Record<TranslationEngineType, EngineMetadata> = {
+  'google-translate': {
+    id: 'google-translate',
+    name: 'Google Translate Engine',
+    shortName: 'Google Translate',
+    description: 'Primary high-speed neural translation engine providing industry-standard accuracy across African languages and global pairs.',
+    bestFor: 'All supported African languages (Yoruba, Hausa, Igbo, Kanuri, Swahili, Zulu, Xhosa, Amharic, Somali, etc.) and global pairs.',
+    isOnlineRequired: true,
+    status: 'active',
+    badgeColor: 'bg-sky-100 text-sky-800 border-sky-300 dark:bg-sky-950/60 dark:text-sky-300 dark:border-sky-800',
+    architectureTier: 'Primary AI Neural',
+    tier: 'Primary Engine (Source 1)',
+    strengths: 'Fastest latency, massive multilingual vocabulary, real-time colloquial syntax',
+    supportedLanguagesCount: 23,
+    isOfflineCapable: false,
+  },
   'gemini-ai': {
     id: 'gemini-ai',
-    name: 'Gemini Indigenous AI Model',
+    name: 'Gemini Indigenous AI Model (v3.5)',
     shortName: 'Gemini AI',
     description: 'Server-side advanced LLM conditioned with deep African linguistic prompts, morphological tonality, diacritics retention, and cultural context.',
     bestFor: 'All languages, especially low-resource Nigerian languages (Urhobo, Isoko, Nupe, Igala, Ebira, Kanuri, Idoma, Ijaw).',
@@ -34,7 +49,7 @@ export const TRANSLATION_ENGINES: Record<TranslationEngineType, EngineMetadata> 
     status: 'active',
     badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-300 dark:bg-emerald-950/60 dark:text-emerald-300 dark:border-emerald-800',
     architectureTier: 'Primary AI Neural',
-    tier: 'Primary AI Neural',
+    tier: 'Secondary AI (Source 2)',
     strengths: 'Deep cultural semantics, tone diacritics, low-resource Nigerian synthesis',
     supportedLanguagesCount: 23,
     isOfflineCapable: false,

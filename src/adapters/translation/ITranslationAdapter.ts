@@ -4,6 +4,8 @@ export interface TranslationOptions {
   preferredEngine?: TranslationEngineType;
   sourceLanguageName?: string;
   targetLanguageName?: string;
+  isContextLocked?: boolean;
+  contextPrompt?: string;
 }
 
 /**
